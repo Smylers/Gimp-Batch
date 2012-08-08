@@ -7,7 +7,9 @@ use v5.10;
 use autodie;
 use Exporter qw<import>;
 
-use Scalar::Util qw<reftype>;
+use Scalar::Util qw<blessed reftype>;
+
+use Gimp::Batch::Scheme;
 
 
 =head1 NAME
@@ -40,10 +42,10 @@ our @EXPORT_OK = qw<fn image drawable TRUE FALSE>;
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 
-sub image { 'image' };
-sub drawable { 'drawable' };
-sub TRUE { 'TRUE' };
-sub FALSE { 'FALSE' };
+sub image { Gimp::Batch::Scheme->new('image') };
+sub drawable { Gimp::Batch::Scheme->new('drawable') };
+sub TRUE { Gimp::Batch::Scheme->new('TRUE') };
+sub FALSE { Gimp::Batch::Scheme->new('FALSE') };
 
 
 sub fn
@@ -51,10 +53,23 @@ sub fn
   my ($fn, @arg) = @_;
 
   $fn =~ s/_/-/g;
-  
-  "($fn @arg)";
-}
 
+  # Quote string args:
+  foreach (@arg)
+  {
+
+    # That is, an argument which isn't already Scheme syntax and which behaves
+    # like a string rather than a number:
+    no warnings qw<numeric>;
+    if (!(blessed $_ && $_->isa('Gimp::Batch::Scheme')) && ($_ & '') eq '')
+    {
+      $_ = qq["$_"];
+      # TODO Find out what Scheme's quote-escaping syntax is.
+    }
+  }
+  
+  Gimp::Batch::Scheme->new("($fn @arg)");
+}
 
 
 sub step
