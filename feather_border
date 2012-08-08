@@ -11,7 +11,7 @@ use Gimp::Batch qw<:all>;
 
 
 my $borderer = Gimp::Batch->new(script_fu_fuzzy_border => image, drawable,
-    '"#FAF5C0"', 8, TRUE, 1, FALSE, 100, FALSE, TRUE);
+    \'#FAF5C0', 8, TRUE, 1, FALSE, 100, FALSE, TRUE);
 
 my ($in_file, $out_file) = @ARGV;
 $borderer->apply($in_file, $out_file);

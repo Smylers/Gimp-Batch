@@ -51,6 +51,12 @@ sub fn
   my ($fn, @arg) = @_;
 
   $fn =~ s/_/-/g;
+
+  foreach (@arg)
+  {
+    $_ = qq["$$_"] if ref eq 'SCALAR';
+    # TODO Find out what Scheme's quote-escaping syntax is.
+  }
   
   "($fn @arg)";
 }
