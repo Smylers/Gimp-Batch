@@ -36,7 +36,7 @@ sub new
 }
 
 
-our @EXPORT_OK = qw<fn image drawable TRUE FALSE>;
+our @EXPORT_OK = qw<fn image drawable TRUE FALSE RUN_NONINTERACTIVE>;
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 
@@ -44,6 +44,7 @@ sub image { 'image' };
 sub drawable { 'drawable' };
 sub TRUE { 'TRUE' };
 sub FALSE { 'FALSE' };
+sub RUN_NONINTERACTIVE { 'RUN-NONINTERACTIVE' };
 
 
 sub fn
