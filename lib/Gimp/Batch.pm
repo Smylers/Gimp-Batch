@@ -38,7 +38,7 @@ sub new
 }
 
 
-our @EXPORT_OK = qw<fn image drawable TRUE FALSE>;
+our @EXPORT_OK = qw<fn image drawable TRUE FALSE RUN_NONINTERACTIVE>;
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
 
 
@@ -46,6 +46,7 @@ sub image { Gimp::Batch::Scheme->new('image') };
 sub drawable { Gimp::Batch::Scheme->new('drawable') };
 sub TRUE { Gimp::Batch::Scheme->new('TRUE') };
 sub FALSE { Gimp::Batch::Scheme->new('FALSE') };
+sub RUN_NONINTERACTIVE { Gimp::Batch::Scheme->new('RUN-NONINTERACTIVE') };
 
 
 sub fn
